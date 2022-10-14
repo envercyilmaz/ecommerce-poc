@@ -1,0 +1,35 @@
+import styles from "./Icon.style";
+import BasketIcon from "../../assets/basket.svg";
+import CheckboxIcon from "../../assets/checkbox.svg";
+import CheckboxSelectedIcon from "../../assets/checkboxSelected.svg";
+import RadioIcon from "../../assets/radio.svg";
+import RadioSelectedIcon from "../../assets/radioSelected.svg";
+import PlusIcon from "../../assets/plusSign.svg";
+import SubstractIcon from "../../assets/substractSign.svg";
+import ArrowLeftIcon from "../../assets/arrowLeft.svg";
+import ArrowRightIcon from "../../assets/arrowRight.svg";
+
+const iconMap = {
+  Basket: BasketIcon,
+  Checkbox: CheckboxIcon,
+  CheckboxSelected: CheckboxSelectedIcon,
+  Radio: RadioIcon,
+  RadioSelected: RadioSelectedIcon,
+  Plus: PlusIcon,
+  Substract: SubstractIcon,
+  ArrowLeft: ArrowLeftIcon,
+  ArrowRight: ArrowRightIcon
+};
+
+const { Wrapper } = styles;
+
+
+// onclick method adds pointer cursor
+const Icon = ({ name, size=24, style, onClick }) => {
+  return (
+    <Wrapper style={style} onClick={onClick} size={size}>
+      <img src={iconMap[name]} width={size} height={size} />
+    </Wrapper>
+  );
+}
+export default Icon;
