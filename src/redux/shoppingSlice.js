@@ -5,6 +5,7 @@ const initialState = {
   data: { raw: [], filtered: [], paginated: []},
   selectedType: "mug",
   isLoading: true,
+  cartItems: [],
   filterState: {
     brands: [
       { label: "All", value: 1, selected: true }
@@ -19,6 +20,12 @@ const initialState = {
     { label: "New to old", value: 3, selected: false, isAsc: false, fieldName: "added" },
     { label: "Old to new", value: 4, selected: false, isAsc: true, fieldName: "added" }
   ]
+}
+
+const applyAllItemFilterChange = (state, filterName, newValue) => {
+  state.filterState[filterName].forEach(el => {
+    el.selected = newValue;
+  })
 }
 
 const getSortedAndUniqueItems = (a) => {
@@ -42,12 +49,12 @@ const getInitialFilterData = data => {
 
   brandList.forEach(label => {
     const value = filterObjBrands[filterObjBrands.length - 1].value + 1;
-    filterObjBrands.push({ label, value, selected: false });
+    filterObjBrands.push({ label, value, selected: true });
   });
 
   tagList.forEach(label => {
     const value = filterObjTags[filterObjTags.length - 1].value + 1;
-    filterObjTags.push({ label, value, selected: false });
+    filterObjTags.push({ label, value, selected: true });
   });
 
   return { brands: filterObjBrands, tags: filterObjTags };
@@ -67,16 +74,55 @@ export const shoppingSlice = createSlice({
   initialState,
   reducers: {
     setSelectedType: (state, action) => {
-      state.selectedType = action.payload
+      state.selectedType = action.payload;
     },
     setFilteredData: (state, action) => {
-      state.data.filtered = action.payload
+      state.data.filtered = action.payload;
     },
     setPaginatedData: (state, action) => {
-      state.data.paginated = action.payload
+      state.data.paginated = action.payload;
     },
     applyFilter: (state, action) => {
-      const filterType = action.payload
+      const { item, filterName } = action.payload;
+      const isAllItem = item.value === 1;
+      if(isAllItem) {
+        applyAllItemFilterChange(state, filterName, !item.selected);
+      } else {
+        state.filterState[filterName].forEach(el => {
+          if(el.value === item.value) {
+            el.selected = !el.selected;
+          } 
+        })
+      }
+      let newFiltered = [];
+      const rawCopy = [...JSON.parse(JSON.stringify(state.data.raw))];
+      let filterState = {...JSON.parse(JSON.stringify(state.filterState))};
+      // If "All" is selected there is no need to filter 
+      if (!filterState.brands[0].selected) {
+        const allowedBrands = filterState.brands.filter(item => item.selected).map(item => item.label);
+        newFiltered = rawCopy.filter(item => allowedBrands.indexOf(item.manufacturer) >= 0);
+      } else {
+        newFiltered = rawCopy;
+      }
+      // If "All" is selected there is no need to filter 
+      if (!filterState.tags[0].selected) {
+        const allowedTags = filterState.tags.filter(item => item.selected).map(item => item.label);
+        newFiltered = newFiltered.filter(item => {
+          if(item?.tags?.length) {
+            let includesAtLeastOne = false;
+            item.tags.forEach(t => {
+              if(allowedTags.indexOf(t) >= 0) {
+                includesAtLeastOne = true;
+              }
+            })
+            return includesAtLeastOne;
+          } else {
+            return false
+          }
+        });
+      }
+
+      state.data.filtered = newFiltered;
     },
     applySort: (state, action) => {
       const selectedItem = action.payload;
