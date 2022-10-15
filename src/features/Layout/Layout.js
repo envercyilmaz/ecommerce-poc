@@ -4,11 +4,16 @@ import Icon from "../Icon";
 import SortingMenu from '../SortingMenu';
 import FilterMenu from '../FilterMenu';
 import ProductList from '../ProductList';
+import ShoppingCart from '../ShoppingCart';
 import styles from './Layout.style';
+import { useSelector } from 'react-redux';
 
 const { Wrapper, Header, LogoContainer, Logo, Cart, Price, Content, LeftSide, ProductsContainer, RightSide, Footer, FooterText } = styles;
 
 const Layout = () => {
+
+  const { cartItems, totalPrice } = useSelector(state => state.shopping);
+
 
   return (
     <Wrapper>
@@ -18,7 +23,9 @@ const Layout = () => {
         </LogoContainer>
         <Cart>
           <Icon name="Basket" />
-          <Price>₺ 39,97</Price>
+          {totalPrice ? (
+             <Price>{"₺" + totalPrice}</Price>
+          ) : null}
         </Cart>
       </Header>
       <Content>
@@ -30,7 +37,11 @@ const Layout = () => {
         <ProductsContainer>
           <ProductList />
         </ProductsContainer>
-        <RightSide></RightSide>
+        <RightSide>
+          {cartItems?.length > 0 ? (
+            <ShoppingCart items={cartItems} />
+          ) : null}
+        </RightSide>
       </Content>
       <Footer>
         <FooterText>©2019 Market</FooterText>

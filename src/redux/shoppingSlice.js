@@ -5,7 +5,24 @@ const initialState = {
   data: { raw: [], filtered: [], paginated: []},
   selectedType: "mug",
   isLoading: true,
-  cartItems: [],
+  cartItems: [
+    {
+      "price":11.99,
+      "name":"Licensed Snow Mug",
+      "amount": 1
+   },
+   {
+      "price":12.99,
+      "name":"Intelligent Trees Shirt",
+      "amount": 5
+   },
+   {
+      "price":15.99,
+      "name":"Incredible Ocean Shirt",
+      "amount": 3
+   }
+  ],
+  totalPrice: 0,
   filterState: {
     brands: [
       { label: "All", value: 1, selected: true }
@@ -73,6 +90,14 @@ export const shoppingSlice = createSlice({
   name: 'shopping',
   initialState,
   reducers: {
+    getCartTotalPrice: (state, action) => {
+      const items = action.payload ? [...action.payload] : null;
+      if(!items?.length) {
+        return "";
+      }
+      const total = items.reduce(function (acc, obj) { return acc + (obj.price * obj.amount); }, 0);
+      state.totalPrice = total;
+    },
     setSelectedType: (state, action) => {
       state.selectedType = action.payload;
     },
@@ -162,6 +187,6 @@ export const shoppingSlice = createSlice({
   }
 })
 
-export const { setSelectedType, setFilteredData, setPaginatedData, applyFilter, applySort } = shoppingSlice.actions
+export const { getCartTotalPrice, setSelectedType, setFilteredData, setPaginatedData, applyFilter, applySort } = shoppingSlice.actions
 
 export default shoppingSlice.reducer

@@ -3,7 +3,7 @@ import axios from "axios";
 import Pagination from "../Pagination";
 import styles from "./ProductList.style";
 import { useDispatch, useSelector } from 'react-redux';
-import { setSelectedType, getProducts, setFilteredData, setPaginatedData } from "../../redux/shoppingSlice";
+import { setSelectedType, getProducts, setPaginatedData } from "../../redux/shoppingSlice";
 
 const { Wrapper, Header, Content, ItemContainer, Label, PriceLabel, TabRow, TabButton, ItemImageContainer, ItemImage, AddButton } = styles;
 

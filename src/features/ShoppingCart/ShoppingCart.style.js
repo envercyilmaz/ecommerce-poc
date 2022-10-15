@@ -1,92 +1,85 @@
 import styled from "styled-components";
 
 const Wrapper = styled.div`
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-  background-color: #e5e5e5;
+  width: 296px;
+  border: 8.18px solid #1ea4ce;
+  border-radius: 2px;
 `;
 
-const Header = styled.div`
-  position: relative;
+const CartItems = styled.div`
   display: flex;
-  height: 76.64px;
+  flex-direction: column;
+  padding: 10.22px 22px 0;
+`;
+
+const CartRow = styled.div`
   width: 100%;
+  display: flex;
+  padding: 16.35px 0;
+  border-bottom: 1px solid #f4f4f4;
+  justify-content: space-between;
+`;
+
+const InfoContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const ButtonsContainer = styled.div`
+  display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
+`;
+
+const ItemPrice = styled.div`
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 18px;
+  color: #1ea4ce;
+`;
+
+const ItemName = styled.div`
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  color: #191919;
+
+`;
+
+const NumberBox = styled.div`
+  width: 32px;
+  height: 32.7px;
+  margin: 0 11px;
   background-color: #1ea4ce;
   color: #ffffff;
-`;
-
-const LogoContainer = styled.div`
   display: flex;
-  height: 40.32px;
-`;
-
-const Logo = styled.img`
-  height: 40.32px;
-  align-self: center;
-`;
-
-const Basket = styled.div`
-  position: absolute;
-  display: flex;
-  height: 100%;
-  width: 129px;
   align-items: center;
-  justify-content: space-between;
-  background-color: #147594;
-  color: #ffffff;
-  right: 10%;
-  padding: 0 24px;
-`;
-
-const Icon = styled.img`
-  height: 24.52px;
-`;
-
-const Price = styled.div`
-  color: #ffffff;
-  font-size: 14px;
-  font-weight: 600;
-`;
-
-const Content = styled.div`
-  display: flex;
-  width: 1232px;
-  height: 100%;
-  padding-top: 38.36px;
-`;
-
-const LeftSide = styled.div`
-  flex: 0 0 296px;
-`;
-
-const ProductsContainer = styled.div`
-  flex: 0 0 608px;
-  margin: 0 16px;
-`;
-
-const RightSide = styled.div`
-  flex: 0 0 296px;
+  justify-content: center;
 `;
 
 const Footer = styled.div`
-  margin-top: auto;
-  padding: 40px 0;
   display: flex;
-  justify-content: center;
+  justify-content: flex-end;
+  padding: 16.35px 0;
+`;
+
+const PriceBox = styled.div`
+  margin-right: 16px;
+  border: 2px solid #1ea4ce;
+  border-radius: 2px;
+  width: 92px;
+  height: 51.1px;
+  display: flex;
   align-items: center;
+  justify-content: center;
+  color: #1ea4ce;
+  font-weight: 600;
+  font-size: 14px;
+  line-height: 16px;
 `;
 
-const FooterText = styled.span`
-  height: 23px;
-  color: #1ea4Ce;
-  margin: 0 8px;
-  font-weight: 400;
-  font-size: 13px;
-`;
 
-export default { Wrapper, Header, LogoContainer, Logo, Basket, Icon, Price, Content, LeftSide, ProductsContainer, RightSide, Footer, FooterText }
+export default { Wrapper, CartItems, CartRow, InfoContainer, ItemPrice, ItemName, NumberBox, Footer, PriceBox, ButtonsContainer }
