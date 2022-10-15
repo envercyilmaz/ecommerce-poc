@@ -1,4 +1,5 @@
 import styles from "./Icon.style";
+import PropTypes from "prop-types";
 import BasketIcon from "../../assets/basket.svg";
 import CheckboxIcon from "../../assets/checkbox.svg";
 import CheckboxSelectedIcon from "../../assets/checkboxSelected.svg";
@@ -32,4 +33,12 @@ const Icon = ({ name, size=24, style, onClick }) => {
     </Wrapper>
   );
 }
+
+Icon.propTypes = {
+  name: PropTypes.string, 
+  size: PropTypes.number,
+  style: PropTypes.object,
+  onClick: PropTypes.func
+}
+
 export default Icon;

@@ -14,7 +14,6 @@ const Layout = () => {
 
   const { cartItems, totalPrice } = useSelector(state => state.shopping);
 
-
   return (
     <Wrapper>
       <Header>

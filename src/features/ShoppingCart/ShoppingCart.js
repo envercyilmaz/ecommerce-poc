@@ -2,6 +2,7 @@ import React, { useCallback, useState } from 'react';
 import Icon from "../Icon";
 import styles from "./ShoppingCart.style";
 import { useDispatch, useSelector } from 'react-redux';
+import PropTypes from "prop-types";
 
 const { Wrapper, CartItems, CartRow, InfoContainer, ItemPrice, ItemName, NumberBox, Footer, PriceBox, ButtonsContainer } = styles;
 
@@ -32,5 +33,10 @@ const ShoppingCart = ({ items }) => {
     </Wrapper>
   );
 }
+
+ShoppingCart.propTypes = {
+  items: PropTypes.array
+}
+
 
 export default ShoppingCart

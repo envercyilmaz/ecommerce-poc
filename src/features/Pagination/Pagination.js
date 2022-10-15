@@ -2,6 +2,7 @@ import styles from "./Pagination.style"
 import { useState, useEffect, useCallback } from "react";
 import Icon from "../Icon";
 import { useDispatch, useSelector } from 'react-redux';
+import PropTypes from "prop-types";
 
 const TOTAL_BOX_ITEMS = 7;
 const INNER_BOX_ITEMS = 3;
@@ -83,6 +84,12 @@ const Pagination = ({ data, pageDataLength=16, setPaginatedData }) => {
   );
 };
 
+Pagination.propTypes = {
+  data: PropTypes.object.isRequired, 
+  setData: PropTypes.func.isRequired,
+  pageDataLength: PropTypes.number.isRequired,
+}
+
 export default Pagination;
 
 const InnerPages = ({ currentPage, setCurrentPage, pageCount }) => {
@@ -110,3 +117,10 @@ const InnerPages = ({ currentPage, setCurrentPage, pageCount }) => {
     </>
   );
 };
+
+InnerPages.propTypes = {
+  currentPage: PropTypes.number.isRequired, 
+  setCurrentPage: PropTypes.func.isRequired,
+  pageCount: PropTypes.number.isRequired,
+}
+

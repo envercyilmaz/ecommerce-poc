@@ -3,6 +3,7 @@ import Icon from "../Icon";
 import styles from './FilterMenu.style';
 import { useDispatch, useSelector } from 'react-redux';
 import { applyFilter } from "../../redux/shoppingSlice";
+import PropTypes from "prop-types";
 
 const { Wrapper, Header, Content, InputRow, InputContainer, Label, SearchInput } = styles;
 
@@ -39,5 +40,10 @@ const FilterMenu = ({ title }) => {
     </Wrapper>
   );
 }
+
+FilterMenu.propTypes = {
+  title: PropTypes.string
+}
+
 
 export default FilterMenu
