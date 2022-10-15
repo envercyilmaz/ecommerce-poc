@@ -12,14 +12,15 @@ const Header = styled.div`
   font-size: 13px;
   height: 18px;
   margin-bottom: 12px;
+  color: ${({ theme }) => theme.grayTextColor};
 `;
 
 const Content = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  background-color: #ffffff;
-  box-shadow: 0px 6px 24px rgba(93, 62, 188, 0.04);
+  background-color: ${({ theme }) => theme.backgroundColor};
+  box-shadow: ${({ theme }) => theme.boxShadow};
   border-radius: 2px;
   padding: 24px;
 `;
@@ -45,12 +46,13 @@ const Label = styled.div`
   font-size: 14px;
   line-height: 18px;
   margin-left: 12px;
+  color: ${({ theme }) => theme.filterTextColor};
 `;
 
 const SearchInput = styled.input`
   width: 248px;
   height: 48px;
-  border: 2px solid #e0e0e0;
+  border: ${({ theme }) => "2px solid " + theme.searchInputBorder};
   border-radius: 2px;
   font-family: 'Inter';
   font-style: normal;
@@ -59,6 +61,7 @@ const SearchInput = styled.input`
   line-height: 24px;
   padding: 12px 16px;
   margin-bottom: 17px;
+  color: ${({ theme }) => theme.lightGrayTextColor};
 `;
 
 export default { Wrapper, Header, Content, InputRow, InputContainer, Label, SearchInput }

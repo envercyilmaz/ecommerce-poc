@@ -13,13 +13,14 @@ const Header = styled.div`
   font-size: 13px;
   height: 18px;
   margin-bottom: 12px;
+  color: ${({ theme }) => theme.grayTextColor};
 `;
 
 const Content = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  background-color: #ffffff;
+  background-color: ${({ theme }) => theme.backgroundColor};
   box-shadow: 0px 6px 24px rgba(93, 62, 188, 0.04);
   border-radius: 2px;
   padding: 24px;
@@ -34,6 +35,7 @@ const Label = styled.div`
   font-weight: 400;
   font-size: 14px;
   margin-left: 12px;
+  color: ${({ theme }) => theme.filterTextColor};
 `;
 
 export default { Wrapper, Header, Content, InputContainer, Label }

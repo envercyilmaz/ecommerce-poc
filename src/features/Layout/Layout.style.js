@@ -6,7 +6,7 @@ const Wrapper = styled.div`
   align-items: center;
   width: 100%;
   height: 100%;
-  background-color: #fafafa;
+  background-color: ${({ theme }) => theme.contentBackgroundColor};
   overflow-y: auto;
   overflow-x: hidden;
 `;
@@ -18,8 +18,8 @@ const Header = styled.div`
   width: 100%;
   align-items: center;
   justify-content: center;
-  background-color: #1ea4ce;
-  color: #ffffff;
+  background-color: ${({ theme }) => theme.brandColor};
+  color: ${({ theme }) => theme.backgroundColor};
 `;
 
 const LogoContainer = styled.div`
@@ -39,8 +39,8 @@ const Cart = styled.div`
   width: 129px;
   align-items: center;
   justify-content: space-between;
-  background-color: #147594;
-  color: #ffffff;
+  background-color: ${({ theme }) => theme.darkBrandColor};
+  color: ${({ theme }) => theme.backgroundColor};
   right: 10%;
   padding: 0 24px;
 `;
@@ -50,7 +50,7 @@ const Icon = styled.img`
 `;
 
 const Price = styled.div`
-  color: #ffffff;
+  color: ${({ theme }) => theme.backgroundColor};
   font-size: 14px;
   font-weight: 600;
 `;
@@ -84,7 +84,7 @@ const Footer = styled.div`
 
 const FooterText = styled.span`
   height: 23px;
-  color: #1ea4Ce;
+  color: ${({ theme }) => theme.brandColor};
   margin: 0 8px;
   font-weight: 400;
   font-size: 13px;

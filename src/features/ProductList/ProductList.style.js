@@ -11,6 +11,7 @@ const Header = styled.div`
   font-size: 20px;
   line-height: 26px;
   margin-bottom: 16px;
+  color: ${({ theme }) => theme.headerColor};
 `;
 
 const TabRow = styled.div`
@@ -28,16 +29,16 @@ const TabButton = styled.button`
   display: flex;
   align-items: center;
   justify-content: center;
-  color: ${({ active }) => (active ? "#f2f0fd" : "#1ea4ce")};
-  background-color: ${({ active }) => (active ? "#1ea4ce" : "#f2f0fd")};
+  color: ${({ theme, active }) => (active ? theme.tabButtonColor : theme.brandColor)};
+  background-color: ${({ theme, active }) => (active ? theme.brandColor : theme.tabButtonColor)};
 `;
 
 const Content = styled.div`
   flex: 1;
   display: flex;
   flex-wrap: wrap;
-  background-color: #ffffff;
-  box-shadow: 0px 6px 24px rgba(93, 62, 188, 0.04);
+  background-color: ${({ theme }) => theme.backgroundColor};
+  box-shadow: ${({ theme }) => theme.boxShadow};
   border-radius: 2px;
   padding: 20px 0 0 20px;
 `;
@@ -56,15 +57,15 @@ const ItemImageContainer = styled.div`
   justify-content: center;
   height: 124px;
   width: 124px;
-  border: 1.17666px solid #f3f0fe;
+  border: ${({ theme }) => "1.17666px solid " + theme.imageBorderColor};
   border-radius: 12px;
-  background: #fefefe;
+  background: ${({ theme }) => theme.secondaryBackgroundColor};
 `;
 
 const ItemImage = styled.div`
   width: 90px;
   height: 90px;
-  background: #c4c4c4;
+  background: ${({ theme }) => theme.darkGrayBackgroundColor};
 `;
 
 const Label = styled.div`
@@ -72,7 +73,7 @@ const Label = styled.div`
   font-weight: 600;
   font-size: 14px;
   line-height: 20px;
-  color: #191919;
+  color: ${({ theme }) => theme.textColor};
   margin-bottom: 8px;
 `;
 
@@ -80,7 +81,7 @@ const PriceLabel = styled.div`
   font-weight: 400;
   font-size: 14px;
   line-height: 18px;
-  color: #1ea4ce;
+  color: ${({ theme }) => theme.brandColor};
   margin-top: 8px;
   margin-bottom: 5px;
 `;
@@ -88,13 +89,13 @@ const PriceLabel = styled.div`
 const AddButton = styled.button`
   cursor: pointer;
   height: 22px;
-  background: #1ea4ce;
+  background: ${({ theme }) => theme.brandColor};
   border-radius: 2px;
   border: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #ffffff;
+  color: ${({ theme }) => theme.backgroundColor};
   font-weight: 600;
   font-size: 12px;
   line-height: 20px;

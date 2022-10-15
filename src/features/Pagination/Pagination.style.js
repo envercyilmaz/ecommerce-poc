@@ -21,9 +21,8 @@ const NumberBox = styled.button`
   line-height: 16px;
   border-radius: 2px;
   border-width: 0;
-  background-color:  ${({ selected }) => (selected ? "#1ea4ce" : "transparent")};
-  color: ${({ selected }) => (selected ? "#ffffff" : "#697488")};
-`;
+  background-color:  ${({ theme, selected }) => (selected ? theme.brandColor : "transparent")};
+  color: ${({ theme, selected }) => (selected ? theme.backgroundColor : theme.grayTextColor)};`;
 
 const Button = styled.button`
   display: flex;
@@ -38,7 +37,7 @@ const Button = styled.button`
   font-weight: 400;
   line-height: 24px;
   border-width: 0;
-  color: #697488;
+  color: ${({ theme }) => theme.grayTextColor};
   background-color: transparent;
 `;
 
@@ -48,7 +47,7 @@ const ButtonText = styled.div`
   font-weight: 600;
   font-size: 14px;
   line-height: 16px;
-  color: ${({ left }) => (left ? "#1ea4ce" : "#697488")};
+  color: ${({ theme, left }) => (left ? theme.brandColor : theme.grayTextColor)};
 `;
 
 export default { Wrapper, NumberBox, Button, ButtonText }

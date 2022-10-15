@@ -5,7 +5,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: 296px;
-  border: 8.18px solid #1ea4ce;
+  border: ${({ theme }) => "8.18px solid " + theme.brandColor};
   border-radius: 2px;
 `;
 
@@ -19,7 +19,7 @@ const CartRow = styled.div`
   width: 100%;
   display: flex;
   padding: 16.35px 0;
-  border-bottom: 1px solid #f4f4f4;
+  border-bottom: ${({ theme }) => "1px solid " + theme.bottomBorderColor};
   justify-content: space-between;
 `;
 
@@ -38,23 +38,23 @@ const ItemPrice = styled.div`
   font-weight: 600;
   font-size: 14px;
   line-height: 18px;
-  color: #1ea4ce;
+  color: ${({ theme }) => theme.brandColor};
+
 `;
 
 const ItemName = styled.div`
   font-weight: 400;
   font-size: 14px;
   line-height: 18px;
-  color: #191919;
-
+  color: ${({ theme }) => theme.textColor};
 `;
 
 const NumberBox = styled.div`
   width: 32px;
   height: 32.7px;
   margin: 0 11px;
-  background-color: #1ea4ce;
-  color: #ffffff;
+  background-color: ${({ theme }) => theme.brandColor};
+  color: ${({ theme }) => theme.backgroundColor};
   display: flex;
   align-items: center;
   justify-content: center;
@@ -68,14 +68,14 @@ const Footer = styled.div`
 
 const PriceBox = styled.div`
   margin-right: 16px;
-  border: 2px solid #1ea4ce;
+  border: ${({ theme }) => " 2px solid " + theme.brandColor};
   border-radius: 2px;
   width: 92px;
   height: 51.1px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #1ea4ce;
+  color: ${({ theme }) => theme.brandColor};
   font-weight: 600;
   font-size: 14px;
   line-height: 16px;
