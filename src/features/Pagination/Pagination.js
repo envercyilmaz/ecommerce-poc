@@ -86,8 +86,8 @@ const Pagination = ({ data, pageDataLength=16, setPaginatedData }) => {
 
 Pagination.propTypes = {
   data: PropTypes.object.isRequired, 
-  setData: PropTypes.func.isRequired,
-  pageDataLength: PropTypes.number.isRequired,
+  setPaginatedData: PropTypes.func.isRequired,
+  pageDataLength: PropTypes.number,
 }
 
 export default Pagination;

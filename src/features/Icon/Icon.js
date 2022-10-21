@@ -26,9 +26,9 @@ const { Wrapper } = styles;
 
 
 // onclick method adds pointer cursor
-const Icon = ({ name, size=24, style, onClick }) => {
+const Icon = ({ name, size=24, style, isClickable, onClick }) => {
   return (
-    <Wrapper style={style} onClick={onClick} size={size}>
+    <Wrapper style={style} isClickable={isClickable} size={size} onClick={onClick}>
       <img src={iconMap[name]} width={size} height={size} />
     </Wrapper>
   );

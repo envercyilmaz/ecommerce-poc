@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 import Icon from "../Icon";
 import styles from './FilterMenu.style';
 import { useDispatch, useSelector } from 'react-redux';
-import { applyFilter } from "../../redux/shoppingSlice";
+import { applyFilter } from "../../redux/productsSlice";
 import PropTypes from "prop-types";
 
 const { Wrapper, Header, Content, InputRow, InputContainer, Label, SearchInput } = styles;
 
 const FilterMenu = ({ title }) => {
   const dispatch = useDispatch();
-  const { filterState } = useSelector(state => state.shopping);
+  const { filterState } = useSelector(state => state.products);
 
   const filterName = title.toLowerCase();
   const [shownItems, setShownItems] = useState();

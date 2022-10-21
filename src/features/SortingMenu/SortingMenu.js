@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import Icon from "../Icon";
 import styles from './SortingMenu.style';
 import { useDispatch, useSelector } from 'react-redux';
-import { applySort } from "../../redux/shoppingSlice";
+import { applySort } from "../../redux/productsSlice";
 
 const { Wrapper, Header, Content, InputContainer, Label } = styles;
 
 const SortingMenu = () => {
   const dispatch = useDispatch();
-  const { sortingState: items } = useSelector(state => state.shopping);
+  const { sortingState: items } = useSelector(state => state.products);
 
   return (
     <Wrapper>

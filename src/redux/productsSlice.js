@@ -1,28 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
 
+const DEFAULT_IS_ASC = true;
+const DEFAULT_SORT_FIELD = "price";
+
 const initialState = {
   data: { raw: [], filtered: [], paginated: []},
   selectedType: "mug",
   isLoading: true,
-  cartItems: [
-    {
-      "price":11.99,
-      "name":"Licensed Snow Mug",
-      "amount": 1
-   },
-   {
-      "price":12.99,
-      "name":"Intelligent Trees Shirt",
-      "amount": 5
-   },
-   {
-      "price":15.99,
-      "name":"Incredible Ocean Shirt",
-      "amount": 3
-   }
-  ],
-  totalPrice: 0,
   filterState: {
     brands: [
       { label: "All", value: 1, selected: true }
@@ -32,20 +17,20 @@ const initialState = {
     ]
   },
   sortingState: [
-    { label: "Price low to high", value: 1, selected: false, isAsc: true, fieldName: "price" },
+    { label: "Price low to high", value: 1, selected: true, isAsc: true, fieldName: "price" },
     { label: "Price high to low", value: 2, selected: false, isAsc: false, fieldName: "price" },
     { label: "New to old", value: 3, selected: false, isAsc: false, fieldName: "added" },
     { label: "Old to new", value: 4, selected: false, isAsc: true, fieldName: "added" }
   ]
 }
 
-const applyAllItemFilterChange = (state, filterName, newValue) => {
+const _applyAllItemFilterChange = (state, filterName, newValue) => {
   state.filterState[filterName].forEach(el => {
     el.selected = newValue;
   })
 }
 
-const getSortedAndUniqueItems = (a) => {
+const _getSortedAndUniqueItems = (a) => {
   return a.sort().filter(function(item, pos, ary) {
       return !pos || item != ary[pos - 1];
   });
@@ -59,8 +44,8 @@ const getInitialFilterData = data => {
     tagListInit = tagListInit.concat(item.tags);
   });
 
-  const brandList = getSortedAndUniqueItems(brandListInit);
-  const tagList = getSortedAndUniqueItems(tagListInit);
+  const brandList = _getSortedAndUniqueItems(brandListInit);
+  const tagList = _getSortedAndUniqueItems(tagListInit);
   const filterObjBrands = [...initialState.filterState.brands];
   const filterObjTags = [...initialState.filterState.tags];
 
@@ -77,27 +62,31 @@ const getInitialFilterData = data => {
   return { brands: filterObjBrands, tags: filterObjTags };
 }
 
-export const getProducts = createAsyncThunk("shopping/getProducts", async (type, thunkAPI) => {
+const _sortData = (data, isAsc, fieldName) => {
+  const dataCopy = [...data];
+  dataCopy.sort((a, b) => {
+    if(isAsc) {
+      return a[fieldName] - b[fieldName];
+    }
+    return b[fieldName] - a[fieldName];
+  });
+
+  return dataCopy;
+}
+
+export const getProducts = createAsyncThunk("products/getProducts", async (type, thunkAPI) => {
   try {
     const { data } = await axios("http://localhost:4000/items?itemType=" + type);
-    return data;
+    return _sortData(data, DEFAULT_IS_ASC, DEFAULT_SORT_FIELD);
   } catch (error) {
     return thunkAPI.rejectWithValue("getProducts failed");
   }
 });
 
-export const shoppingSlice = createSlice({
-  name: 'shopping',
+export const productsSlice = createSlice({
+  name: 'products',
   initialState,
   reducers: {
-    getCartTotalPrice: (state, action) => {
-      const items = action.payload ? [...action.payload] : null;
-      if(!items?.length) {
-        return "";
-      }
-      const total = items.reduce(function (acc, obj) { return acc + (obj.price * obj.amount); }, 0);
-      state.totalPrice = total;
-    },
     setSelectedType: (state, action) => {
       state.selectedType = action.payload;
     },
@@ -111,7 +100,7 @@ export const shoppingSlice = createSlice({
       const { item, filterName } = action.payload;
       const isAllItem = item.value === 1;
       if(isAllItem) {
-        applyAllItemFilterChange(state, filterName, !item.selected);
+        _applyAllItemFilterChange(state, filterName, !item.selected);
       } else {
         state.filterState[filterName].forEach(el => {
           if(el.value === item.value) {
@@ -158,16 +147,8 @@ export const shoppingSlice = createSlice({
         } else {
           item.selected = false;
         }
-      })
-
-      const dataToSort = [...JSON.parse(JSON.stringify(state.data.filtered))];
-      dataToSort.sort((a, b) => {
-        if(isAsc) {
-          return a[fieldName] - b[fieldName];
-        }
-        return b[fieldName] - a[fieldName];
-      });
-      state.data.filtered = dataToSort;
+      })    
+      state.data.filtered = _sortData(JSON.parse(JSON.stringify(state.data.filtered)), isAsc, fieldName);
     }
   },
   extraReducers: {
@@ -187,6 +168,6 @@ export const shoppingSlice = createSlice({
   }
 })
 
-export const { getCartTotalPrice, setSelectedType, setFilteredData, setPaginatedData, applyFilter, applySort } = shoppingSlice.actions
+export const { setSelectedType, setFilteredData, setPaginatedData, applyFilter, applySort } = productsSlice.actions
 
-export default shoppingSlice.reducer
+export default productsSlice.reducer

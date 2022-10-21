@@ -6,7 +6,7 @@ const Wrapper = styled.div`
   align-items: center;
   width: ${({ size }) => size + "px"};
   height: ${({ size }) => size + "px"};
-  cursor: ${({ onClick }) => (onClick ? "pointer" : "normal")}
+  cursor: ${({ isClickable }) => (isClickable ? "pointer" : "normal")};
 `;
 
 export default { Wrapper }
