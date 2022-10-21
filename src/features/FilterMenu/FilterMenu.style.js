@@ -49,6 +49,16 @@ const Label = styled.div`
   color: ${({ theme }) => theme.filterTextColor};
 `;
 
+const CountLabel = styled.div`
+  margin-left: 4px;
+  display: flex;
+  align-items: center;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  color: ${({ theme }) => theme.lightGrayTextColor};
+`;
+
 const SearchInput = styled.input`
   width: 248px;
   height: 48px;
@@ -64,4 +74,4 @@ const SearchInput = styled.input`
   color: ${({ theme }) => theme.lightGrayTextColor};
 `;
 
-export default { Wrapper, Header, Content, InputRow, InputContainer, Label, SearchInput }
+export default { Wrapper, Header, Content, InputRow, InputContainer, Label, CountLabel, SearchInput }

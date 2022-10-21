@@ -10,10 +10,10 @@ const initialState = {
   isLoading: true,
   filterState: {
     brands: [
-      { label: "All", value: 1, selected: true }
+      { label: "All", value: 1, selected: true, count: "" }
     ],
     tags: [
-      { label: "All", value: 1, selected: true }
+      { label: "All", value: 1, selected: true, count: "" }
     ]
   },
   sortingState: [
@@ -30,33 +30,47 @@ const _applyAllItemFilterChange = (state, filterName, newValue) => {
   })
 }
 
-const _getSortedAndUniqueItems = (a) => {
+const _getSortedAndUniqueItems = a => {
   return a.sort().filter(function(item, pos, ary) {
       return !pos || item != ary[pos - 1];
   });
 }
 
+const _fillCounts = (obj, list) => list.forEach(name => obj[name] ? obj[name]++ :  obj[name] = 1);
+
+const _getCountMap = (brandList, tagList) => {
+  let countMap = { brands: {}, tags: {} };
+  _fillCounts(countMap.brands, brandList);
+  _fillCounts(countMap.tags, tagList);
+  return countMap;
+}
+
 const getInitialFilterData = data => {
   let brandListInit = [];
   let tagListInit = [];
+
+  const filterObjBrands = [{ ...initialState.filterState.brands[0], count: data.length }];
+  const filterObjTags = [{ ...initialState.filterState.tags[0], count: data.length }];
+
   data.forEach((item) => {
     brandListInit.push(item.manufacturer);
     tagListInit = tagListInit.concat(item.tags);
   });
 
+  const countMap = _getCountMap(brandListInit, tagListInit) 
+
   const brandList = _getSortedAndUniqueItems(brandListInit);
   const tagList = _getSortedAndUniqueItems(tagListInit);
-  const filterObjBrands = [...initialState.filterState.brands];
-  const filterObjTags = [...initialState.filterState.tags];
+
 
   brandList.forEach(label => {
     const value = filterObjBrands[filterObjBrands.length - 1].value + 1;
-    filterObjBrands.push({ label, value, selected: true });
+    filterObjBrands.push({ label, value, selected: true, count: countMap.brands[label] });
   });
 
   tagList.forEach(label => {
     const value = filterObjTags[filterObjTags.length - 1].value + 1;
-    filterObjTags.push({ label, value, selected: true });
+    filterObjTags.push({ label, value, selected: true, count: countMap.tags[label] });
   });
 
   return { brands: filterObjBrands, tags: filterObjTags };
