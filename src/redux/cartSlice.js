@@ -1,23 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-  cartItems: [
-    {
-      "price":11.99,
-      "name":"Licensed Snow Mug",
-      "amount": 1
-   },
-   {
-      "price":12.99,
-      "name":"Intelligent Trees Shirt",
-      "amount": 5
-   },
-   {
-      "price":15.99,
-      "name":"Incredible Ocean Shirt",
-      "amount": 3
-   }
-  ],
+  cartItems: [],
   totalPrice: 0
 }
 
@@ -28,21 +12,45 @@ export const cartSlice = createSlice({
     setCartTotalPrice: (state, action) => {
       const items = action.payload ? [...action.payload] : null;
       if(!items?.length) {
-        return "";
+        return 0;
       }
       const total = items.reduce(function (acc, obj) { return acc + (obj.price * obj.amount); }, 0);
-      state.totalPrice = total;
+      state.totalPrice = total.toFixed(2);
     },
-    handleCartItemChange: (state, action) => {
+    handleCartItemAmountChange: (state, action) => {
       const { index, increment } = action.payload;
-      // if(!items?.length) {
-      //   return "";
-      // }
-      // const total = items.reduce(function (acc, obj) { return acc + (obj.price * obj.amount); }, 0);
-      // state.totalPrice = total;
+      let cartItemsCopy = [...JSON.parse(JSON.stringify(state.cartItems))];
+      const cartItem = cartItemsCopy[index];
+      if(cartItem.amount === 1 && increment === -1) {
+        cartItemsCopy.splice(index, 1);
+        if(!cartItemsCopy?.length) {
+          state.totalPrice = 0;
+        }
+      } else {
+        cartItem.amount += increment; 
+      }
+      state.cartItems = cartItemsCopy;
     },
     handleAddCartItem: (state, action) => {
-      const item = action.payload;
+      const item = { ...action.payload };
+      const foundIndex = state.cartItems.findIndex(el => el.slug === item.slug);
+      if(foundIndex >= 0) {
+        let cartItemsCopy = [...JSON.parse(JSON.stringify(state.cartItems))];
+        cartItemsCopy[foundIndex].amount++;
+        state.cartItems = cartItemsCopy;
+      } else {
+        item.amount = 1;
+        state.cartItems = [...state.cartItems, ...[item]];
+      }
+    },
+    handleRemoveCartItem: (state, action) => {
+      const index = action.payload;
+      let cartItemsCopy = [...JSON.parse(JSON.stringify(state.cartItems))];
+      cartItemsCopy.splice(index, 1);
+      state.cartItems = cartItemsCopy;
+      if(!cartItemsCopy?.length) {
+        state.totalPrice = 0;
+      }
     },
     clearCart: (state) => {
       state.cartItems = [];
@@ -51,6 +59,6 @@ export const cartSlice = createSlice({
   }
 })
 
-export const { setCartTotalPrice, handleCartItemsChange, handleAddCartItem, clearCart } = cartSlice.actions
+export const { setCartTotalPrice, handleCartItemAmountChange, handleAddCartItem, handleRemoveCartItem, clearCart } = cartSlice.actions
 
 export default cartSlice.reducer

@@ -81,5 +81,14 @@ const PriceBox = styled.div`
   line-height: 16px;
 `;
 
+const RemoveButton = styled.span`
+  border: 0;
+  border-radius: 2px;
+  color: ${({ theme }) => theme.brandColor};
+  font-weight: 300;
+  font-size: 12px;
+  text-decoration: underline;
+  cursor: pointer;
+`;
 
-export default { Wrapper, CartItems, CartRow, InfoContainer, ItemPrice, ItemName, NumberBox, Footer, PriceBox, ButtonsContainer }
+export default { Wrapper, CartItems, CartRow, InfoContainer, ItemPrice, ItemName, NumberBox, Footer, PriceBox, ButtonsContainer, RemoveButton }

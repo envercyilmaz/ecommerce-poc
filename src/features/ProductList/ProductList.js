@@ -37,7 +37,7 @@ const ProductList = () => {
                 </ItemImageContainer>
                 <PriceLabel>{"₺ " + item.price}</PriceLabel>
                 <Label>{item.name}</Label>
-                <AddButton onClick={dispatch(handleAddCartItem(item))}>Add</AddButton>
+                <AddButton onClick={() => dispatch(handleAddCartItem(item))}>Add</AddButton>
               </ItemContainer>
             )) : null}
           </Content>
