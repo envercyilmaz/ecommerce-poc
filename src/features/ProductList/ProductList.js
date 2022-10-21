@@ -30,7 +30,7 @@ const ProductList = () => {
       ) : (
         <>
           <Content>
-            {data.paginated?.length > 0 ? data.paginated.map((item, index) => (
+            {data.filtered?.length > 0 ? data.paginated.map((item, index) => (
               <ItemContainer key={item.name + index}>
                 <ItemImageContainer>
                   <ItemImage />

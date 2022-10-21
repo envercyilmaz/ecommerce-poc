@@ -34,7 +34,7 @@ const TabButton = styled.button`
 `;
 
 const Content = styled.div`
-  flex: 1;
+  flex: 0 0 1000px;
   display: flex;
   flex-wrap: wrap;
   background-color: ${({ theme }) => theme.backgroundColor};
