@@ -16,7 +16,7 @@ const SortingMenu = () => {
       <Content>
         {items.map(item => (
           <InputContainer key={item.label}>
-            <Icon name={item.selected ? "RadioSelected" : "Radio"} size={22} onClick={() => dispatch(applySort(item))}/>
+            <Icon isClickable name={item.selected ? "RadioSelected" : "Radio"} size={22} onClick={() => dispatch(applySort(item))}/>
             <Label>{item.label}</Label>
           </InputContainer>
         ))}

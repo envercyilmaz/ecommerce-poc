@@ -160,6 +160,7 @@ export const productsSlice = createSlice({
       state.data.raw = action.payload;
       state.data.filtered = action.payload;
       state.filterState = getInitialFilterData(action.payload);
+      state.sortingState = initialState.sortingState;
     },
     [getProducts.rejected]: (state, action) => {
       console.log(action);

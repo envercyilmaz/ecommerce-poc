@@ -31,7 +31,7 @@ const FilterMenu = ({ title }) => {
         <InputContainer>
           {shownItems?.length ? shownItems.map(item => (
             <InputRow key={item.label}>
-              <Icon name={item.selected ? "CheckboxSelected" : "Checkbox"} size={26} onClick={() => {dispatch(applyFilter({ item, filterName }))}}/>
+              <Icon isClickable name={item.selected ? "CheckboxSelected" : "Checkbox"} size={26} onClick={() => {dispatch(applyFilter({ item, filterName }))}}/>
               <Label>{item.label}</Label>
             </InputRow>
           )) : null}
