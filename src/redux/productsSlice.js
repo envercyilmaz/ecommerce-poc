@@ -5,6 +5,10 @@ const DEFAULT_IS_ASC = true;
 const DEFAULT_SORT_FIELD = "price";
 
 const initialState = {
+  // Data is kept by 3 different formations
+  // 1. Raw data is unchanged API data, it stays the same until a new API call is made
+  // 2. filtered data keeps up with the filterState & sortingState, it is always a filtered version raw data
+  // 3. paginated data is handle by its own component: Pagination.js, a setter method is passed to said component
   data: { raw: [], filtered: [], paginated: []},
   selectedType: "mug",
   isLoading: true,
@@ -24,18 +28,21 @@ const initialState = {
   ]
 }
 
+// Called when "All" is selected in filter list 
 const _applyAllItemFilterChange = (state, filterName, newValue) => {
   state.filterState[filterName].forEach(el => {
     el.selected = newValue;
   })
 }
 
+// Utility func that both sorts and removes duplicates from an array
 const _getSortedAndUniqueItems = a => {
   return a.sort().filter(function(item, pos, ary) {
       return !pos || item != ary[pos - 1];
   });
 }
 
+// Utility functions to help create occurance map for filters
 const _fillCounts = (obj, list) => list.forEach(name => obj[name] ? obj[name]++ :  obj[name] = 1);
 
 const _getCountMap = (brandList, tagList) => {
@@ -45,6 +52,19 @@ const _getCountMap = (brandList, tagList) => {
   return countMap;
 }
 
+const _sortData = (data, isAsc, fieldName) => {
+  const dataCopy = [...data];
+  dataCopy.sort((a, b) => {
+    if(isAsc) {
+      return a[fieldName] - b[fieldName];
+    }
+    return b[fieldName] - a[fieldName];
+  });
+
+  return dataCopy;
+}
+
+// Filter data is created out of existing product list properties
 const getInitialFilterData = data => {
   let brandListInit = [];
   let tagListInit = [];
@@ -74,18 +94,6 @@ const getInitialFilterData = data => {
   });
 
   return { brands: filterObjBrands, tags: filterObjTags };
-}
-
-const _sortData = (data, isAsc, fieldName) => {
-  const dataCopy = [...data];
-  dataCopy.sort((a, b) => {
-    if(isAsc) {
-      return a[fieldName] - b[fieldName];
-    }
-    return b[fieldName] - a[fieldName];
-  });
-
-  return dataCopy;
 }
 
 export const getProducts = createAsyncThunk("products/getProducts", async (type, thunkAPI) => {
@@ -125,6 +133,8 @@ export const productsSlice = createSlice({
       let newFiltered = [];
       const rawCopy = [...JSON.parse(JSON.stringify(state.data.raw))];
       let filterState = {...JSON.parse(JSON.stringify(state.filterState))};
+
+      // Setting brands state
       // If "All" is selected there is no need to filter 
       if (!filterState.brands[0].selected) {
         const allowedBrands = filterState.brands.filter(item => item.selected).map(item => item.label);
@@ -132,6 +142,8 @@ export const productsSlice = createSlice({
       } else {
         newFiltered = rawCopy;
       }
+
+      // Setting tags state
       // If "All" is selected there is no need to filter 
       if (!filterState.tags[0].selected) {
         const allowedTags = filterState.tags.filter(item => item.selected).map(item => item.label);

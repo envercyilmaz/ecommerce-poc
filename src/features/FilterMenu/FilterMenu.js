@@ -15,6 +15,7 @@ const FilterMenu = ({ title }) => {
   const [shownItems, setShownItems] = useState();
   const [inputFilter, setInputFilter] = useState("");
 
+  // Filtering filter list with search input
   useEffect(() => {
     if (inputFilter) {
       setShownItems(filterState[filterName].filter(item => item.label.toLowerCase().includes(inputFilter)));

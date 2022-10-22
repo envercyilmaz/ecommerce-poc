@@ -1,7 +1,7 @@
 import styles from "./Pagination.style"
 import { useState, useEffect, useCallback } from "react";
 import Icon from "../Icon";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import PropTypes from "prop-types";
 
 const TOTAL_BOX_ITEMS = 7;

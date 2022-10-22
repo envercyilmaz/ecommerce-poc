@@ -14,7 +14,8 @@ const { Wrapper, Header, LogoContainer, Logo, Cart, Price, Content, LeftSide, Pr
 const Layout = () => {
   const dispatch = useDispatch();
   const { cartItems, totalPrice } = useSelector(state => state.cart);
-
+ 
+  // Any time cartItems change total price is updated
   useEffect(() => {
     if(cartItems?.length) {
       dispatch(setCartTotalPrice(cartItems));

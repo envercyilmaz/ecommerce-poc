@@ -14,6 +14,7 @@ const ProductList = () => {
   const { selectedType, data, isLoading } = useSelector(state => state.products);
   const dispatch = useDispatch();
 
+  // When tab is changed a different kind of product list fetched from the API
   useEffect(() => {
     dispatch(getProducts(selectedType));
   }, [selectedType]);
