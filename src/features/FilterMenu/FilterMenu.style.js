@@ -3,7 +3,6 @@ import styled from "styled-components";
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: 296px;
   margin-bottom: 24px;
 `;
 
@@ -60,7 +59,6 @@ const CountLabel = styled.div`
 `;
 
 const SearchInput = styled.input`
-  width: 248px;
   height: 48px;
   border: ${({ theme }) => "2px solid " + theme.searchInputBorder};
   border-radius: 2px;

@@ -36,11 +36,11 @@ const Layout = () => {
         </Cart>
       </Header>
       <Content>
-        <LeftSide>
-          <SortingMenu />
-          <FilterMenu title="Brands" />
-          <FilterMenu title="Tags" />
-        </LeftSide>
+          <LeftSide>
+            <SortingMenu />
+            <FilterMenu title="Brands" />
+            <FilterMenu title="Tags" />
+          </LeftSide>
         <ProductsContainer>
           <ProductList />
         </ProductsContainer>

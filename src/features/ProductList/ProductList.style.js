@@ -48,7 +48,8 @@ const ItemContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   width: 124px;
-  margin: 0 20px 20px 0;
+  height: 225px;
+  margin: 0 23px 20px 0;
 `;
 
 const ItemImageContainer = styled.div`

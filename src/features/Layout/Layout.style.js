@@ -57,21 +57,22 @@ const Price = styled.div`
 
 const Content = styled.div`
   display: flex;
-  width: 1232px;
+  justify-content: center;
+  flex: 0 1 1232px;
   padding-top: 38.36px;
 `;
 
 const LeftSide = styled.div`
-  flex: 0 0 296px;
+  flex: 0 1 296px;
 `;
 
 const ProductsContainer = styled.div`
-  flex: 0 0 608px;
+  flex: 0 1 608px;
   margin: 0 16px;
 `;
 
 const RightSide = styled.div`
-  flex: 0 0 296px;
+  flex: 0 1 296px;
 `;
 
 const Footer = styled.div`
