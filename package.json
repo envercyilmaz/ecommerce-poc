@@ -19,7 +19,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "heroku-prebuild": "json-server --watch db.json --port 4000",
+    "heroku-prebuild": "npm install -g json-server",
+    "heroku-postbuild": "json-server --watch db.json --port 4000",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
